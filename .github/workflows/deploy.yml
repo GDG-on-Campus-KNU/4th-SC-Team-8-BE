@@ -1,0 +1,23 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🔐 Set Up SSH Authentication
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: 🚀 Run Deployment Script on Server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.GCP_URL }} "bash /home/${{ secrets.USER_NAME }}/backend_deploy.sh"
