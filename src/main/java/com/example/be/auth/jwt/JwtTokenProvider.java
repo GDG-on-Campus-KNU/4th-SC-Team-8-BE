@@ -20,7 +20,7 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
     private final RedisTemplate<String, String> redisTemplate;
-    private final long ACCESS_FIVE_MINUTES = 1000L * 60;
+    private final long ACCESS_FIVE_MINUTES = 1000L * 60 * 5;
     private final long REFRESH_SEVEN_DAYS = 1000L * 60 * 60 * 24 * 7;
 
     @PostConstruct
