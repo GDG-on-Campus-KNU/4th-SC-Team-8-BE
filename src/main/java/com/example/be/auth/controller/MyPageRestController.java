@@ -7,8 +7,6 @@ import com.example.be.common.annotation.ApiErrorCodeExamples;
 import com.example.be.common.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("api/v1/mypage")
 @Tag(name = "마이페이지 기능", description = "비밀번호 변경, 로그아웃, 회원 탈퇴 기능을 포함한다.")
-public class MyPageController {
+public class MyPageRestController {
     private final MyPageService myPageService;
 
     @Operation(summary = "회원 탈퇴 기능",
