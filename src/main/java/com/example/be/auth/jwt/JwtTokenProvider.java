@@ -73,7 +73,7 @@ public class JwtTokenProvider {
     public boolean validateAccessToken(String accessToken){
         try{
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(accessToken);
-            return !claims.getBody().getExpiration().before(new Date()) && !"access".equals(claims.getBody().get("tokenType", String.class));
+            return !claims.getBody().getExpiration().before(new Date()) && "access".equals(claims.getBody().get("tokenType", String.class));
         }
         catch(ExpiredJwtException e){
             return false;
@@ -83,7 +83,7 @@ public class JwtTokenProvider {
     public boolean validateRefreshToken(String refreshToken){
         try{
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(refreshToken);
-            return !claims.getBody().getExpiration().before(new Date()) && !"refresh".equals(claims.getBody().get("tokenType", String.class));
+            return !claims.getBody().getExpiration().before(new Date()) && "refresh".equals(claims.getBody().get("tokenType", String.class));
         }
         catch(ExpiredJwtException e){
             return false;
