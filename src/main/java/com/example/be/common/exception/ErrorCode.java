@@ -15,8 +15,10 @@ public enum ErrorCode {
 
     //Auth
     DUPLICATE_EMAIL(HttpStatus.CONFLICT, "중복된 이메일이 있습니다."),
-    DUPLICATE_NICK_NAME(HttpStatus.CONFLICT, "중복된 닉네임이 있습니다."),
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "로그인 시 입력한 정보가 틀렸거나, 로그인을 하지 않았습니다."),
+    DUPLICATE_USERNAME(HttpStatus.CONFLICT, "중복된 사용자명이 있습니다."),
+    LOGIN_FAIL(HttpStatus.CONFLICT, "로그인에 실패했습니다."),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "토큰이 만료되었거나 로그인을 하지 않았습니다."),
+    INVALID_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "유효하지 않은 리프레시 토큰입니다."),
 
     //Game
     GAME_NOT_FOUND(HttpStatus.NOT_FOUND, "게임을 찾을 수 없습니다.")
