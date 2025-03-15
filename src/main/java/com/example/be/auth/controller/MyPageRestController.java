@@ -1,12 +1,14 @@
 package com.example.be.auth.controller;
 
 import com.example.be.auth.dto.PasswordRequest;
+import com.example.be.auth.dto.UserInfoResponse;
 import com.example.be.auth.service.CustomUserDetails;
 import com.example.be.auth.service.MyPageService;
 import com.example.be.common.annotation.ApiErrorCodeExamples;
 import com.example.be.common.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -48,5 +50,21 @@ public class MyPageRestController {
         myPageService.changePassword(userDetails.getUser(), passwordRequest);
 
         return ResponseEntity.ok(ErrorCode.OK.getMessage());
+    }
+
+    @Operation(summary = "토큰 유효성 검사 기능",
+            description = "헤더에 있는 access Token의 유효성을 검사한다.")
+    @ApiErrorCodeExamples({ErrorCode.UNAUTHORIZED})
+    @PostMapping("/token")
+    public ResponseEntity<?> chkValidToken(HttpServletRequest request){
+        return ResponseEntity.ok(ErrorCode.OK.getMessage());
+    }
+
+    @Operation(summary = "사용자 정보 조회 기능",
+            description = "사용자의 이름을 조회한다.(필요 시 이메일도 추가 가능합니다!)")
+    @ApiErrorCodeExamples({ErrorCode.UNAUTHORIZED})
+    @GetMapping("/info")
+    public ResponseEntity<UserInfoResponse> getUserInfo(@AuthenticationPrincipal CustomUserDetails userDetails){
+        return ResponseEntity.ok(myPageService.getUserInfo(userDetails.getUser()));
     }
 }
