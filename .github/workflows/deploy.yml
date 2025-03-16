@@ -19,6 +19,17 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      - name: Debug Environment Variables
+        run: |
+          echo "GCP_URL=${{ secrets.GCP_URL }}"
+          echo "REDIS_PORT=${{ secrets.REDIS_PORT }}"
+          echo "DB_HOST=${{ secrets.DB_HOST }}"
+          echo "DB_PORT=${{ secrets.DB_PORT }}"
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
+          echo "SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}"
+          echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}"
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}"
+
       - name: Build with Gradle
         run: |
           chmod +x ./gradlew
