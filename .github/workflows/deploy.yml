@@ -37,6 +37,9 @@ jobs:
     needs: build
 
     steps:
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+    
       - name: SSH into GCP and Deploy
         uses: appleboy/ssh-action@v1.0.3
         with:
