@@ -29,8 +29,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_PASSWORD }}/my-app:latest -f Dockerfile .
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-app:latest
+          docker build -t ${{ secrets.DOCKER_HUB_PASSWORD }}/be/be_iamge:latest -f Dockerfile .
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/be/be_iamge:latest
 
   deploy:
     runs-on: ubuntu-latest
