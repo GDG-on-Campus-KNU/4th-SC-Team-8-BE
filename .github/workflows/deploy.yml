@@ -44,7 +44,7 @@ jobs:
           username: ${{ secrets.USER_NAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+            docker pull ${{ secrets.DOCKER_USERNAME }}/be/be_iamge:latest
             docker stop my-app-container || true
             docker rm my-app-container || true
-            docker run -d --name my-app-container -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+            docker run -d --name my-app-container -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/be/be_iamge:latest
