@@ -21,9 +21,11 @@ jobs:
           java-package: jdk
           check-latest: false
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+        
       - name: Build with Gradle
         run: |
-          chmod +x ./gradlew
           ./gradlew build -x test
         env:
           GCP_URL: ${{ secrets.GCP_URL }}
