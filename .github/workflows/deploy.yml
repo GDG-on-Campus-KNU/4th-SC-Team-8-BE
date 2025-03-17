@@ -21,18 +21,16 @@ jobs:
 
       - name: Build with Gradle
         run: |
+          export GCP_URL=${{ secrets.GCP_URL }}
+          export REDIS_PORT=${{ secrets.REDIS_PORT }}
+          export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          export DB_HOST=${{ secrets.DB_HOST }}
+          export DB_PORT=${{ secrets.DB_PORT }}
+          export SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}
+          export SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          export JWT_SECRET=${{ secrets.JWT_SECRET }}
           chmod +x ./gradlew
           ./gradlew build -x test
-        env:
-          GCP_URL: ${{ secrets.GCP_URL }}
-          REDIS_PORT: ${{ secrets.REDIS_PORT }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
