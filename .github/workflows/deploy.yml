@@ -60,4 +60,12 @@ jobs:
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/gdg-8th-sc:latest
             docker stop my-app-container || true
             docker rm my-app-container || true
-            docker run -d --name my-app-container -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/gdg-8th-sc:latest
+            docker run -d --name my-app-container -p 8080:8080 \
+              -e DB_HOST=${{ secrets.DB_HOST }} \
+              -e DB_PORT=${{ secrets.DB_PORT }} \
+              -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+              -e REDIS_PORT=${{ secrets.REDIS_PORT }} \
+              -e SMTP_USERNAME=${{ secrets.SMTP_USERNAME }} \
+              -e SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }} \
+              -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
+              ${{ secrets.DOCKER_HUB_USERNAME }}/gdg-8th-sc:latest
