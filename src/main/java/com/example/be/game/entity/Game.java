@@ -19,7 +19,7 @@ public class Game {
     private String youtubeLink;
 
     @NotNull
-    @Column(columnDefinition = "MEDIUMTEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String landmark;
 
     public Game(String youtubeLink, String landmark){
