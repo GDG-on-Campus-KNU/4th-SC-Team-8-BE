@@ -51,6 +51,7 @@ jobs:
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/gdg-8th-sc:latest
             docker stop my-app-container || true
             docker rm my-app-container || true
+            docker image prune -f
             docker run -d --name my-app-container -p 8080:8080 \
               -e DB_HOST=${{ secrets.DB_HOST }} \
               -e DB_PORT=${{ secrets.DB_PORT }} \
