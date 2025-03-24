@@ -39,10 +39,10 @@ public class SecurityConfig {
                         .authenticationEntryPoint(customAuthenticationEntryPoint)
                 )
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/swagger-ui/**").permitAll()
-                        .requestMatchers("/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .requestMatchers("**/swagger-ui/**").permitAll()
+                        .requestMatchers("**/v3/api-docs/**").permitAll()
+                        .requestMatchers("**/api/v1/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "**/api/**").permitAll()
                         .anyRequest().authenticated())
 //                          .anyRequest().permitAll())
         ;
