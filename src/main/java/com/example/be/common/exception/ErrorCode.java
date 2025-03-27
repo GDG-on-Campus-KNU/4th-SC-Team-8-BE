@@ -21,7 +21,8 @@ public enum ErrorCode {
     INVALID_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "유효하지 않은 리프레시 토큰입니다."),
 
     //Game
-    GAME_NOT_FOUND(HttpStatus.NOT_FOUND, "게임을 찾을 수 없습니다.")
+    GAME_NOT_FOUND(HttpStatus.NOT_FOUND, "게임을 찾을 수 없습니다."),
+    GAME_DUPLICATE_YOUTUBE_LINK(HttpStatus.CONFLICT, "중복된 유튜브 링크가 있습니다.")
     ;
 
     private final HttpStatus httpStatus;
