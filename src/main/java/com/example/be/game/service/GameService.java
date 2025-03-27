@@ -19,7 +19,7 @@ public class GameService {
 
     @Transactional(readOnly = true)
     public void chkYoutubeLink(GameRequest gameRequest){
-        if(!gameRepository.existsByYoutubeLink(gameRequest.youtubeLink()))
+        if(gameRepository.existsByYoutubeLink(gameRequest.youtubeLink()))
             throw new ConflictException(ErrorCode.GAME_DUPLICATE_YOUTUBE_LINK);
     }
 
