@@ -25,7 +25,7 @@ public class GameController {
             description = "유튜브 주소를 입력값으로 받아 DB에 존재하는지 확인한다.")
     @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.UNAUTHORIZED, ErrorCode.GAME_DUPLICATE_YOUTUBE_LINK})
     @PostMapping("/check-link")
-    public ResponseEntity<?> register(@RequestBody GameRequest gameRequest){
+    public ResponseEntity<?> chkYoutubeLink(@RequestBody GameRequest gameRequest){
         gameService.chkYoutubeLink(gameRequest);
 
         return ResponseEntity.ok(ErrorCode.OK);
