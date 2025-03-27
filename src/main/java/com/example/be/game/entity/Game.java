@@ -1,5 +1,6 @@
 package com.example.be.game.entity;
 
+import com.example.be.game.dto.GameResponse;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -30,5 +31,9 @@ public class Game {
     public void update(String youtubeLink, String landmark){
         this.youtubeLink = youtubeLink;
         this.landmark = landmark;
+    }
+
+    public GameResponse mapToResponse(){
+        return new GameResponse(this.youtubeLink);
     }
 }
