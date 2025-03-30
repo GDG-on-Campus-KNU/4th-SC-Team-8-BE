@@ -39,6 +39,6 @@ public class MyPageService {
     }
 
     public UserInfoResponse getUserInfo(User user){
-        return new UserInfoResponse(user.getUsername());
+        return new UserInfoResponse(user.getUsername(), user.getEmail());
     }
 }
