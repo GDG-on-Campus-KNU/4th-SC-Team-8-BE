@@ -34,4 +34,11 @@ public class GameService {
 
         return gameList.stream().map(Game::mapToResponse).toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<GameResponse> getRandom20Game(){
+        List<Game> gameList = gameRepository.findRandomGames();
+
+        return gameList.stream().map(Game::mapToResponse).toList();
+    }
 }

@@ -48,4 +48,12 @@ public class GameController {
     public ResponseEntity<List<GameResponse>> getGame(){
         return ResponseEntity.ok(gameService.getGame());
     }
+
+    @Operation(summary = "게임 목록 조회(무작위 20개)",
+            description = "현재 데이터베이스에 등록된 게임 목록 중 무작위 20개를 조회한다.(페이지네이션 필요하시면 말해주세요!)")
+    @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.UNAUTHORIZED})
+    @GetMapping("/random")
+    public ResponseEntity<List<GameResponse>> getRandomGame(){
+        return ResponseEntity.ok(gameService.getRandom20Game());
+    }
 }
