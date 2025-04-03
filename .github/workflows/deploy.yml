@@ -61,4 +61,6 @@ jobs:
               -e SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }} \
               -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
               -e GCP_URL=${{ secrets.GCP_URL }} \
+              -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
+              -e GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
               ${{ secrets.DOCKER_HUB_USERNAME }}/gdg-8th-sc:latest
