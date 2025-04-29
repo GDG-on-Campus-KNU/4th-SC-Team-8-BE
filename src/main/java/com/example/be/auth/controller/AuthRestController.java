@@ -64,8 +64,9 @@ public class AuthRestController {
     @GetMapping("/google-code")
     public ResponseEntity<?> getGoogleLoginURI(HttpServletRequest request) throws URISyntaxException {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setLocation(new URI(userService.getGoogleLoginURI(request)));
-        return new ResponseEntity<>(httpHeaders, HttpStatus.PERMANENT_REDIRECT);
+        String uri = userService.getGoogleLoginURI(request);
+
+        return ResponseEntity.ok(uri);
     }
 
     @Operation(summary = "구글 로그인",
