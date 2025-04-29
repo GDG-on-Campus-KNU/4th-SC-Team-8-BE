@@ -106,19 +106,24 @@ public class UserService {
 
     @Transactional
     public LoginResponse googleLogin(String code, HttpServletRequest request){
-        GoogleAccessTokenResponse googleAccessTokenResponse = getGoogleAccessToken(code, request);
-        GoogleAccountProfileResponse googleAccountProfileResponse = getGoogleAccountProfile(googleAccessTokenResponse);
+        try {
+            GoogleAccessTokenResponse googleAccessTokenResponse = getGoogleAccessToken(code, request);
+            GoogleAccountProfileResponse googleAccountProfileResponse = getGoogleAccountProfile(googleAccessTokenResponse);
 
-        User user;
-        if(!userRepository.existsByEmail(googleAccountProfileResponse.email())){
-            user = new User(googleAccountProfileResponse.email(),
-                    generateRandomName(googleAccountProfileResponse.name()),
-                    "google");
-            userRepository.save(user);
+            User user;
+            if(!userRepository.existsByEmail(googleAccountProfileResponse.email())){
+                user = new User(googleAccountProfileResponse.email(),
+                        generateRandomName(googleAccountProfileResponse.name()),
+                        "google");
+                userRepository.save(user);
+            }
+            else user = userRepository.findByEmail(googleAccountProfileResponse.email()).get();
+
+            return new LoginResponse(jwtTokenProvider.createAccessToken(user), jwtTokenProvider.createRefreshToken(user));
         }
-        else user = userRepository.findByEmail(googleAccountProfileResponse.email()).get();
-
-        return new LoginResponse(jwtTokenProvider.createAccessToken(user), jwtTokenProvider.createRefreshToken(user));
+        catch(Exception e){
+            throw new ConflictException(ErrorCode.LOGIN_FAIL);
+        }
     }
 
     private String getRedirectURI(HttpServletRequest request){
