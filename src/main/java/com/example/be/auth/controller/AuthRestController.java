@@ -1,6 +1,7 @@
 package com.example.be.auth.controller;
 
 import com.example.be.auth.dto.*;
+import com.example.be.auth.service.MailService;
 import com.example.be.auth.service.UserService;
 import com.example.be.common.annotation.ApiErrorCodeExamples;
 import com.example.be.common.exception.ErrorCode;
@@ -8,15 +9,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 
 @AllArgsConstructor
@@ -25,6 +25,7 @@ import java.net.URISyntaxException;
 @Tag(name = "인증/인가 기능", description = "회원 인증 및 인가 기능을 위한 api")
 public class AuthRestController {
     private final UserService userService;
+    private final MailService mailService;
 
     @Operation(summary = "회원 가입 기능",
             description = "email, username, password를 입력받아 회원가입을 진행한다.",
@@ -77,5 +78,15 @@ public class AuthRestController {
     @PostMapping("/google-login")
     public ResponseEntity<LoginResponse> googleLogin(@RequestBody GoogleLoginRequest googleLoginRequest, HttpServletRequest request, HttpServletResponse response) {
         return ResponseEntity.ok(userService.googleLogin(googleLoginRequest.code(), request));
+    }
+
+    @Operation(summary = "랜드마크 추출 완료 메일 전송(ai 서버 전용)",
+            description = "이메일을 입력받아 메일을 전송한다. 현재는 로그인 없이 사용 가능")
+    @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.FAIL_SEND_EMAIL})
+    @PostMapping("/mail")
+    public ResponseEntity<?> sendEmail(@RequestBody MailRequest mailRequest) throws MessagingException {
+        mailService.sendMail(mailRequest.email());
+
+        return ResponseEntity.ok(ErrorCode.OK);
     }
 }
