@@ -3,7 +3,6 @@ package com.example.be.auth.service;
 import com.example.be.auth.dto.PasswordRequest;
 import com.example.be.auth.dto.UserInfoResponse;
 import com.example.be.auth.entity.User;
-import com.example.be.auth.jwt.JwtTokenProvider;
 import com.example.be.auth.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
