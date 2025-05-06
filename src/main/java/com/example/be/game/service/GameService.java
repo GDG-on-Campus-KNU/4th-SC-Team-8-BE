@@ -6,16 +6,16 @@ import com.example.be.game.dto.GameRequest;
 import com.example.be.game.dto.GameResponse;
 import com.example.be.game.entity.Game;
 import com.example.be.game.repository.GameRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class GameService {
-    @Autowired
-    private GameRepository gameRepository;
+    private final GameRepository gameRepository;
 
     @Transactional(readOnly = true)
     public void chkYoutubeLink(GameRequest gameRequest){
@@ -37,8 +37,6 @@ public class GameService {
 
     @Transactional(readOnly = true)
     public List<GameResponse> getRandom20Game(){
-        List<Game> gameList = gameRepository.findRandomGames();
-
-        return gameList.stream().map(Game::mapToResponse).toList();
+        return gameRepository.findRandomGames();
     }
 }
