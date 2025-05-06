@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
     boolean existsByYoutubeLink(String youtubeLink);
-    @Query("SELECT new com.example.be.game.dto.GameResponse(g.youtubeLink) FROM Game g ORDER BY RAND() LIMIT 20")
+    @Query(value = "SELECT youtube_link AS youtubeLink FROM game ORDER BY RAND() LIMIT 20", nativeQuery = true)
     List<GameResponse> findRandomGames();
 }
