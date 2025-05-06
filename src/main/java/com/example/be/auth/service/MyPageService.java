@@ -5,7 +5,6 @@ import com.example.be.auth.dto.UserInfoResponse;
 import com.example.be.auth.entity.User;
 import com.example.be.auth.jwt.JwtTokenProvider;
 import com.example.be.auth.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class MyPageService {
     private final UserRepository userRepository;
     private final RedisTemplate<String, String> redisTemplate;
-    private final JwtTokenProvider jwtTokenProvider;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
