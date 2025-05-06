@@ -27,7 +27,6 @@ public class GeminiService {
             GeminiResponse response = restTemplate.postForObject(geminiURL, request, GeminiResponse.class);
             description = response.getCandidates().getFirst().content().parts().getFirst().text();
         }catch (Exception e){
-            System.out.println(e.getMessage());
             throw new ConflictException(ErrorCode.GEMINI_API_ERROR);
         }
 
