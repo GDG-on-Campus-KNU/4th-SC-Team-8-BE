@@ -63,4 +63,5 @@ jobs:
               -e GCP_URL=${{ secrets.GCP_URL }} \
               -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
               -e GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
+              -e GEMINI_KEY=${{ secrets.GEMINI_KEY }} \
               ${{ secrets.DOCKER_HUB_USERNAME }}/gdg-8th-sc:latest
