@@ -2,6 +2,7 @@ package com.example.be.score.entity;
 
 import com.example.be.auth.entity.User;
 import com.example.be.game.entity.Game;
+import com.example.be.score.dto.ScoreResponse;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -25,7 +26,7 @@ public class Score {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Game game;
 
     @NotNull
@@ -35,5 +36,9 @@ public class Score {
         this.user = user;
         this.game = game;
         this.score = score;
+    }
+
+    public ScoreResponse mapToResponse(){
+        return new ScoreResponse(game.getYoutubeLink(), score);
     }
 }
