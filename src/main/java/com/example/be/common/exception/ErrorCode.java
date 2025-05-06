@@ -23,7 +23,10 @@ public enum ErrorCode {
     //Game
     GAME_NOT_FOUND(HttpStatus.NOT_FOUND, "게임을 찾을 수 없습니다."),
     GAME_DUPLICATE_YOUTUBE_LINK(HttpStatus.CONFLICT, "중복된 유튜브 링크가 있습니다."),
-    FAIL_SEND_EMAIL(HttpStatus.CONFLICT, "메일 전송에 실패했습니다.")
+    FAIL_SEND_EMAIL(HttpStatus.CONFLICT, "메일 전송에 실패했습니다."),
+
+    //Gemini
+    GEMINI_API_ERROR(HttpStatus.CONFLICT, "gemini 호출 중 에러가 발생했습니다.")
     ;
 
     private final HttpStatus httpStatus;
