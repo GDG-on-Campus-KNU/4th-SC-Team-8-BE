@@ -127,7 +127,8 @@ public class UserService {
     }
 
     private String getRedirectURI(HttpServletRequest request){
-        return request.getScheme() + "://" + request.getHeader("Host") + "/login/oauth2/code/google";
+        return "https://sootation.synology.me:8000/login/oauth2/code/google";
+        //return request.getScheme() + "://" + request.getHeader("Host") + "/login/oauth2/code/google";
     }
 
     private GoogleAccessTokenResponse getGoogleAccessToken(String code, HttpServletRequest request){
