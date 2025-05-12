@@ -1,6 +1,7 @@
 package com.example.be.common.config;
 
 import com.example.be.common.properties.RedisProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +14,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @EnableConfigurationProperties(RedisProperties.class)
+@RequiredArgsConstructor
 public class RedisConfig {
-    @Autowired
-    private RedisProperties redisProperties;
+    private final RedisProperties redisProperties;
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {

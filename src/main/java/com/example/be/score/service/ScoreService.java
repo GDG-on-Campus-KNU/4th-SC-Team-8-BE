@@ -4,14 +4,14 @@ import com.example.be.auth.entity.User;
 import com.example.be.score.dto.ScoreResponse;
 import com.example.be.score.entity.Score;
 import com.example.be.score.repository.ScoreRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ScoreService {
     private final ScoreRepository scoreRepository;

@@ -28,11 +28,6 @@ public class Game {
         this.landmark = landmark;
     }
 
-    public void update(String youtubeLink, String landmark){
-        this.youtubeLink = youtubeLink;
-        this.landmark = landmark;
-    }
-
     public GameResponse mapToResponse(){
         return new GameResponse(this.youtubeLink);
     }

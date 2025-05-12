@@ -12,14 +12,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/auth")
 @Tag(name = "인증/인가 기능", description = "회원 인증 및 인가 기능을 위한 api")
@@ -42,7 +42,7 @@ public class AuthRestController {
             description = "email, password를 입력받아 로그인을 진행한다.",
             security = @SecurityRequirement(name = "jwt 제외"))
     @ApiResponse(responseCode = "200", description = "로그인 성공 시 access token 및 refresh token이 발급된다.")
-    @ApiErrorCodeExamples({ErrorCode.LOGIN_FAIL})
+    @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.LOGIN_FAIL})
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest, HttpServletRequest request, HttpServletResponse response) {
         return ResponseEntity.ok(userService.login(loginRequest, request, response));
@@ -52,7 +52,7 @@ public class AuthRestController {
             description = "refresh token을 입력받아 토큰을 재발급 받는다.",
             security = @SecurityRequirement(name = "jwt 제외"))
     @ApiResponse(responseCode = "200", description = "access token 및 refresh token이 발급된다.")
-    @ApiErrorCodeExamples({ErrorCode.INVALID_REFRESH_TOKEN})
+    @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.INVALID_REFRESH_TOKEN})
     @PostMapping("/refresh")
     public ResponseEntity<LoginResponse> refresh(@RequestBody RefreshRequest refreshRequest) {
         return ResponseEntity.ok(userService.refresh(refreshRequest));

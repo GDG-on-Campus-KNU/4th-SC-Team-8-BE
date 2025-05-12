@@ -30,6 +30,8 @@ public class GameService {
     private final RedisTemplate<String, String> redisTemplate;
     private final RestTemplate restTemplate;
     private final long ONE_DAY = 1000L * 60 * 60 * 24;
+    private final String AI_SERVER_URL = "https://signory.site";
+    private final String LANDMARK_PATH = "/process_youtube";
 
     public void chkYoutubeLink(GameRequest gameRequest){
         if(gameRepository.existsByYoutubeLink(gameRequest.youtubeLink()))
@@ -41,8 +43,8 @@ public class GameService {
         if(redisTemplate.hasKey(gameRequest.youtubeLink())) throw new ErrorException(ErrorCode.LANDMARK_RENDERING);
         if(gameRepository.existsByYoutubeLink(gameRequest.youtubeLink())) throw new ErrorException(ErrorCode.ALREADY_EXIST_URL);
         try {
-            URI uri = UriComponentsBuilder.fromUriString("https://signory.site")
-                    .path("/process_youtube")
+            URI uri = UriComponentsBuilder.fromUriString(AI_SERVER_URL)
+                    .path(LANDMARK_PATH)
                     .encode()
                     .build()
                     .toUri();
