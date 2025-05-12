@@ -85,7 +85,7 @@ public class AuthRestController {
     @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.FAIL_SEND_EMAIL, ErrorCode.URL_NOT_FOUND})
     @PostMapping("/mail")
     public ResponseEntity<?> sendEmail(@RequestBody MailRequest mailRequest) throws MessagingException {
-        mailService.sendMail(mailRequest.url());
+        mailService.sendMail(mailRequest.url(), mailRequest.status());
 
         return ResponseEntity.ok(ErrorCode.OK.getMessage());
     }
