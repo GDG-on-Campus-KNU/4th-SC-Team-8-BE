@@ -1,7 +1,7 @@
 package com.example.be.gemini.service;
 
-import com.example.be.common.exception.ConflictException;
 import com.example.be.common.exception.ErrorCode;
+import com.example.be.common.exception.ErrorException;
 import com.example.be.gemini.dto.AiResponse;
 import com.example.be.gemini.dto.GeminiRequest;
 import com.example.be.gemini.dto.GeminiResponse;
@@ -27,7 +27,7 @@ public class GeminiService {
             GeminiResponse response = restTemplate.postForObject(geminiURL, request, GeminiResponse.class);
             description = response.getCandidates().getFirst().content().parts().getFirst().text();
         }catch (Exception e){
-            throw new ConflictException(ErrorCode.GEMINI_API_ERROR);
+            throw new ErrorException(ErrorCode.GEMINI_API_ERROR);
         }
 
         return new AiResponse(description);
