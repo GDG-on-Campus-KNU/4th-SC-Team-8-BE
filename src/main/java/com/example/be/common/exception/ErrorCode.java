@@ -19,12 +19,13 @@ public enum ErrorCode {
     LOGIN_FAIL(HttpStatus.CONFLICT, "로그인에 실패했습니다."),
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "토큰이 만료되었거나 로그인을 하지 않았습니다."),
     INVALID_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "유효하지 않은 리프레시 토큰입니다."),
+    URL_NOT_FOUND(HttpStatus.NOT_FOUND, "주소를 찾을 수 없습니다."),
 
     //Game
     GAME_NOT_FOUND(HttpStatus.NOT_FOUND, "게임을 찾을 수 없습니다."),
     GAME_DUPLICATE_YOUTUBE_LINK(HttpStatus.CONFLICT, "중복된 유튜브 링크가 있습니다."),
     FAIL_SEND_EMAIL(HttpStatus.CONFLICT, "메일 전송에 실패했습니다."),
-
+    FAIL_MAKE_LANDMARK(HttpStatus.BAD_REQUEST, "랜드마크 추출에 실패했습니다."),
     //Gemini
     GEMINI_API_ERROR(HttpStatus.CONFLICT, "gemini 호출 중 에러가 발생했습니다.")
     ;
