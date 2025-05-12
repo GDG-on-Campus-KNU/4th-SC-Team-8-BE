@@ -5,9 +5,8 @@ import com.example.be.auth.entity.User;
 import com.example.be.auth.jwt.JwtTokenProvider;
 import com.example.be.auth.properties.GoogleLoginProperties;
 import com.example.be.auth.repository.UserRepository;
-import com.example.be.common.exception.BadRequestException;
-import com.example.be.common.exception.ConflictException;
 import com.example.be.common.exception.ErrorCode;
+import com.example.be.common.exception.ErrorException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -66,18 +65,18 @@ public class UserService {
             return new LoginResponse(jwtTokenProvider.createAccessToken(user), jwtTokenProvider.createRefreshToken(user));
         }
         catch(BadCredentialsException e){
-            throw new ConflictException(ErrorCode.LOGIN_FAIL);
+            throw new ErrorException(ErrorCode.LOGIN_FAIL);
         }
     }
 
     @Transactional(readOnly = true)
     public void checkEmail(String email) {
-        if (userRepository.existsByEmail(email)) throw new ConflictException(ErrorCode.DUPLICATE_EMAIL);
+        if (userRepository.existsByEmail(email)) throw new ErrorException(ErrorCode.DUPLICATE_EMAIL);
     }
 
     @Transactional(readOnly = true)
     public void checkUsername(String username) {
-        if (userRepository.existsByUsername(username)) throw new ConflictException(ErrorCode.DUPLICATE_USERNAME);
+        if (userRepository.existsByUsername(username)) throw new ErrorException(ErrorCode.DUPLICATE_USERNAME);
     }
 
     @Transactional(readOnly = true)
@@ -92,7 +91,7 @@ public class UserService {
             }
         }
         
-        throw new BadRequestException(ErrorCode.INVALID_REFRESH_TOKEN);
+        throw new ErrorException(ErrorCode.INVALID_REFRESH_TOKEN);
     }
 
     public String getGoogleLoginURI(HttpServletRequest request){
@@ -122,7 +121,7 @@ public class UserService {
             return new LoginResponse(jwtTokenProvider.createAccessToken(user), jwtTokenProvider.createRefreshToken(user));
         }
         catch(Exception e){
-            throw new ConflictException(ErrorCode.LOGIN_FAIL);
+            throw new ErrorException(ErrorCode.LOGIN_FAIL);
         }
     }
 

@@ -1,9 +1,8 @@
 package com.example.be.game.service;
 
 import com.example.be.auth.entity.User;
-import com.example.be.common.exception.BadRequestException;
-import com.example.be.common.exception.ConflictException;
 import com.example.be.common.exception.ErrorCode;
+import com.example.be.common.exception.ErrorException;
 import com.example.be.game.dto.AiRequest;
 import com.example.be.game.dto.AiResponse;
 import com.example.be.game.dto.GameRequest;
@@ -34,13 +33,13 @@ public class GameService {
 
     public void chkYoutubeLink(GameRequest gameRequest){
         if(gameRepository.existsByYoutubeLink(gameRequest.youtubeLink()))
-            throw new ConflictException(ErrorCode.GAME_DUPLICATE_YOUTUBE_LINK);
+            throw new ErrorException(ErrorCode.GAME_DUPLICATE_YOUTUBE_LINK);
     }
 
     @Transactional
     public void postGame(User user, GameRequest gameRequest){
-        if(redisTemplate.hasKey(gameRequest.youtubeLink())) throw new ConflictException(ErrorCode.LANDMARK_RENDERING);
-        if(gameRepository.existsByYoutubeLink(gameRequest.youtubeLink())) throw new ConflictException(ErrorCode.ALREADY_EXIST_URL);
+        if(redisTemplate.hasKey(gameRequest.youtubeLink())) throw new ErrorException(ErrorCode.LANDMARK_RENDERING);
+        if(gameRepository.existsByYoutubeLink(gameRequest.youtubeLink())) throw new ErrorException(ErrorCode.ALREADY_EXIST_URL);
         try {
             URI uri = UriComponentsBuilder.fromUriString("https://signory.site")
                     .path("/process_youtube")
@@ -53,7 +52,7 @@ public class GameService {
             ResponseEntity<AiResponse> response = restTemplate.postForEntity(uri, aiRequest, AiResponse.class);
 
             if (response.getStatusCode() != HttpStatus.OK) {
-                throw new BadRequestException(ErrorCode.FAIL_MAKE_LANDMARK);
+                throw new ErrorException(ErrorCode.FAIL_MAKE_LANDMARK);
             }
 
             String youtubeLink =response.getBody().video_url();
@@ -63,7 +62,7 @@ public class GameService {
                 redisTemplate.expire(user.getEmail(), ONE_DAY, TimeUnit.MILLISECONDS);
             }
         } catch(Exception e){
-            throw new BadRequestException(ErrorCode.FAIL_MAKE_LANDMARK);
+            throw new ErrorException(ErrorCode.FAIL_MAKE_LANDMARK);
         }
     }
 

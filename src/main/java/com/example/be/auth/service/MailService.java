@@ -1,9 +1,8 @@
 package com.example.be.auth.service;
 
 import com.example.be.auth.dto.MailEnum;
-import com.example.be.common.exception.ConflictException;
 import com.example.be.common.exception.ErrorCode;
-import com.example.be.common.exception.NotFoundException;
+import com.example.be.common.exception.ErrorException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,7 @@ public class MailService {
     private String senderEmail;
 
     public void sendMail(String url, MailEnum status) throws MessagingException {
-        if(!redisTemplate.hasKey(url)) throw new NotFoundException(ErrorCode.URL_NOT_FOUND);
+        if(!redisTemplate.hasKey(url)) throw new ErrorException(ErrorCode.URL_NOT_FOUND);
 
         String email =(String)redisTemplate.opsForHash().get(url, "user");
 
@@ -35,7 +34,7 @@ public class MailService {
         try {
             javaMailSender.send(message); // 메일 발송
         } catch (MailException e) {
-            throw new ConflictException(ErrorCode.FAIL_SEND_EMAIL);
+            throw new ErrorException(ErrorCode.FAIL_SEND_EMAIL);
         }
 
         redisTemplate.delete(url);
