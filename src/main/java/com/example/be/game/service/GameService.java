@@ -32,6 +32,7 @@ public class GameService {
     private final long ONE_DAY = 1000L * 60 * 60 * 24;
     private final String AI_SERVER_URL = "https://signory.site";
     private final String LANDMARK_PATH = "/process_youtube";
+
     public void chkYoutubeLink(GameRequest gameRequest){
         if(gameRepository.existsByYoutubeLink(gameRequest.youtubeLink()))
             throw new ErrorException(ErrorCode.GAME_DUPLICATE_YOUTUBE_LINK);

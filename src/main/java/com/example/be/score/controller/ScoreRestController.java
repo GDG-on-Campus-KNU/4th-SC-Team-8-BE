@@ -25,7 +25,7 @@ public class ScoreRestController {
 
     @Operation(summary = "점수 조회 기능",
             description = "사용자의 점수 목록을 조회한다.")
-    @ApiErrorCodeExamples({ErrorCode.UNAUTHORIZED})
+    @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.UNAUTHORIZED})
     @GetMapping()
     public ResponseEntity<List<ScoreResponse>> deleteMember(@AuthenticationPrincipal CustomUserDetails userDetails){
         return ResponseEntity.ok(scoreService.getScores(userDetails.getUser()));

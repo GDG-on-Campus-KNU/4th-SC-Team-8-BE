@@ -23,7 +23,7 @@ public class GeminiRestController {
 
     @Operation(summary = "gemini 질문 기능",
             description = "텍스트를 입력값으로 넣어 답변을 받는다.")
-    @ApiErrorCodeExamples({ErrorCode.UNAUTHORIZED, ErrorCode.GEMINI_API_ERROR})
+    @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.UNAUTHORIZED, ErrorCode.GEMINI_API_ERROR})
     @PostMapping()
     public ResponseEntity<AiResponse> getGeminiResponse(@RequestBody AiRequest request){
         return ResponseEntity.ok(geminiService.getGeminiResposne(request.text()));
