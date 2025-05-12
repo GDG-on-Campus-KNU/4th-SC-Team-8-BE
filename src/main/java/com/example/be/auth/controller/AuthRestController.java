@@ -87,6 +87,6 @@ public class AuthRestController {
     public ResponseEntity<?> sendEmail(@RequestBody MailRequest mailRequest) throws MessagingException {
         mailService.sendMail(mailRequest.url());
 
-        return ResponseEntity.ok(ErrorCode.OK);
+        return ResponseEntity.ok(ErrorCode.OK.getMessage());
     }
 }

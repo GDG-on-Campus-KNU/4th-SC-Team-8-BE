@@ -29,7 +29,7 @@ public class GameController {
     public ResponseEntity<?> chkYoutubeLink(@RequestBody GameRequest gameRequest){
         gameService.chkYoutubeLink(gameRequest);
 
-        return ResponseEntity.ok(ErrorCode.OK);
+        return ResponseEntity.ok(ErrorCode.OK.getMessage());
     }
 
     @Operation(summary = "유튜브 링크 등록",
@@ -40,7 +40,7 @@ public class GameController {
                                       @RequestBody GameRequest gameRequest){
         gameService.postGame(userDetails.getUser(), gameRequest);
 
-        return ResponseEntity.ok(ErrorCode.OK);
+        return ResponseEntity.ok(ErrorCode.OK.getMessage());
     }
 
     @Operation(summary = "게임 목록 조회",
