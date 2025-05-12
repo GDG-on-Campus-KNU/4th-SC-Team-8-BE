@@ -4,14 +4,14 @@ import com.example.be.auth.dto.PasswordRequest;
 import com.example.be.auth.dto.UserInfoResponse;
 import com.example.be.auth.entity.User;
 import com.example.be.auth.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MyPageService {
     private final UserRepository userRepository;
     private final RedisTemplate<String, String> redisTemplate;

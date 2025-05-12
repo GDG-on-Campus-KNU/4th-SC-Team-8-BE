@@ -9,7 +9,7 @@ import com.example.be.common.exception.ErrorCode;
 import com.example.be.common.exception.ErrorException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
@@ -30,7 +30,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @EnableConfigurationProperties(GoogleLoginProperties.class)
 public class UserService {
     private final UserRepository userRepository;
