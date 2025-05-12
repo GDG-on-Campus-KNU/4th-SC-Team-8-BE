@@ -52,6 +52,10 @@ public class GameService {
 
             ResponseEntity<AiResponse> response = restTemplate.postForEntity(uri, aiRequest, AiResponse.class);
 
+            if (response.getStatusCode() != HttpStatus.OK) {
+                throw new BadRequestException(ErrorCode.FAIL_MAKE_LANDMARK);
+            }
+
             String youtubeLink =response.getBody().video_url();
 
             if(!redisTemplate.hasKey(youtubeLink)){
