@@ -34,7 +34,7 @@ public class GameController {
 
     @Operation(summary = "유튜브 링크 등록",
             description = "유튜브 주소를 입력값으로 받아 ai서버에서 랜드마크를 추출하고 DB에 등록한다.")
-    @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.UNAUTHORIZED, ErrorCode.FAIL_MAKE_LANDMARK})
+    @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.UNAUTHORIZED, ErrorCode.FAIL_MAKE_LANDMARK, ErrorCode.ALREADY_EXIST_URL, ErrorCode.LANDMARK_RENDERING})
     @PostMapping()
     public ResponseEntity<?> postGame(@AuthenticationPrincipal CustomUserDetails userDetails,
                                       @RequestBody GameRequest gameRequest){
