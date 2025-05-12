@@ -20,9 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -41,6 +39,8 @@ public class GameService {
 
     @Transactional
     public void postGame(User user, GameRequest gameRequest){
+        if(redisTemplate.hasKey(gameRequest.youtubeLink())) throw new ConflictException(ErrorCode.LANDMARK_RENDERING);
+        if(gameRepository.existsByYoutubeLink(gameRequest.youtubeLink())) throw new ConflictException(ErrorCode.ALREADY_EXIST_URL);
         try {
             URI uri = UriComponentsBuilder.fromUriString("https://signory.site")
                     .path("/process_youtube")
