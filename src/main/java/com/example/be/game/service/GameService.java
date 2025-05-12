@@ -19,6 +19,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -76,5 +81,19 @@ public class GameService {
 
     public List<GameResponse> getRandom20Game(){
         return gameRepository.findRandomGames();
+    }
+
+    public String hashGameResponseList() {
+        try {
+            List<GameResponse> list = gameRepository.findGames();
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            list.stream()
+                    .sorted(Comparator.comparing(GameResponse::youtubeLink))
+                    .forEach(r -> digest.update(r.youtubeLink().trim().toLowerCase().getBytes(StandardCharsets.UTF_8)));
+            byte[] hash = digest.digest();
+            return Base64.getEncoder().encodeToString(hash);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

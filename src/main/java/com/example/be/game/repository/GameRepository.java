@@ -13,4 +13,6 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     boolean existsByYoutubeLink(String youtubeLink);
     @Query(value = "SELECT youtube_link AS youtubeLink FROM game ORDER BY RAND() LIMIT 20", nativeQuery = true)
     List<GameResponse> findRandomGames();
+    @Query(value = "SELECT youtube_link AS youtubeLink FROM game ORDER BY youtube_link", nativeQuery = true)
+    List<GameResponse> findGames();
 }
