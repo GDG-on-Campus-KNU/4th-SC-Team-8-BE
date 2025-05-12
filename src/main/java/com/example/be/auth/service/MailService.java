@@ -2,25 +2,30 @@ package com.example.be.auth.service;
 
 import com.example.be.common.exception.ConflictException;
 import com.example.be.common.exception.ErrorCode;
+import com.example.be.common.exception.NotFoundException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class MailService {
     private final JavaMailSender javaMailSender;
+    private final RedisTemplate<String, String> redisTemplate;
     @Value("${spring.mail.username}")
     private String senderEmail;
 
-    public MailService(JavaMailSender javaMailSender){
-        this.javaMailSender = javaMailSender;
-    }
+    public void sendMail(String url) throws MessagingException {
+        if(!redisTemplate.hasKey(url)) throw new NotFoundException(ErrorCode.URL_NOT_FOUND);
 
-    public void sendMail(String email) throws MessagingException {
+        String email =(String)redisTemplate.opsForHash().get(url, "user");
+
         MimeMessage message = bodyTemplate(email);
 
         message.setFrom(senderEmail);
@@ -31,6 +36,8 @@ public class MailService {
         } catch (MailException e) {
             throw new ConflictException(ErrorCode.FAIL_SEND_EMAIL);
         }
+
+        redisTemplate.delete(url);
     }
 
     public MimeMessage bodyTemplate(String email) throws MessagingException {

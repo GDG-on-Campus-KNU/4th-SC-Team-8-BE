@@ -81,12 +81,12 @@ public class AuthRestController {
     }
 
     @Operation(summary = "랜드마크 추출 완료 메일 전송(ai 서버 전용)",
-            description = "이메일을 입력받아 메일을 전송한다. 현재는 로그인 없이 사용 가능")
-    @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.FAIL_SEND_EMAIL})
+            description = "url을 입력받아 메일을 전송한다. 현재는 로그인 없이 사용 가능")
+    @ApiErrorCodeExamples({ErrorCode.OK, ErrorCode.FAIL_SEND_EMAIL, ErrorCode.URL_NOT_FOUND})
     @PostMapping("/mail")
     public ResponseEntity<?> sendEmail(@RequestBody MailRequest mailRequest) throws MessagingException {
-        mailService.sendMail(mailRequest.email());
+        mailService.sendMail(mailRequest.url());
 
-        return ResponseEntity.ok(ErrorCode.OK);
+        return ResponseEntity.ok(ErrorCode.OK.getMessage());
     }
 }
