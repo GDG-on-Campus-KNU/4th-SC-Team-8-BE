@@ -22,17 +22,17 @@ public class MailService {
     private String senderEmail;
 
     public void sendMail(String url, MailEnum status) throws MessagingException {
-//        if(!redisTemplate.hasKey(url)) throw new ErrorException(ErrorCode.URL_NOT_FOUND);
-//
-//        String email =(String)redisTemplate.opsForHash().get(url, "user");
+        if(!redisTemplate.hasKey(url)) throw new ErrorException(ErrorCode.URL_NOT_FOUND);
 
-        MimeMessage message = bodyTemplate(url, status);
+        String email =(String)redisTemplate.opsForHash().get(url, "user");
+
+        MimeMessage message = bodyTemplate(email, status);
 
         message.setFrom(senderEmail);
-        message.setRecipients(MimeMessage.RecipientType.TO, url);
+        message.setRecipients(MimeMessage.RecipientType.TO, email);
 
         try {
-            javaMailSender.send(message); // 메일 발송
+            javaMailSender.send(message);
         } catch (MailException e) {
             throw new ErrorException(ErrorCode.FAIL_SEND_EMAIL);
         }
